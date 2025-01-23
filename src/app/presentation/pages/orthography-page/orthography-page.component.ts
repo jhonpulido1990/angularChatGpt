@@ -13,10 +13,14 @@ import { TextMessageBoxComponent } from '../../components/text-boxes/text-messag
     ChatMessageComponent,
     MyMessageComponent,
     TypingLoaderComponent,
-    TextMessageBoxComponent
+    TextMessageBoxComponent,
   ],
   templateUrl: './orthography-page.component.html',
   styleUrl: './orthography-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class OrthographyPageComponent {}
+export default class OrthographyPageComponent {
+  handleMessage(prompt: string) {
+    console.log(prompt)
+  }
+}
