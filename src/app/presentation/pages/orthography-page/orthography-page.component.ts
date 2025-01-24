@@ -5,6 +5,7 @@ import { MyMessageComponent } from '../../components/chat-bubbles/my-message/my-
 import { TypingLoaderComponent } from '../../components/typing-loader/typing-loader.component';
 import { TextMessageBoxComponent } from '../../components/text-boxes/text-message-box/text-message-box.component';
 import { TextMessageBoxFileComponent, TextMessageEvent } from '../../components/text-boxes/text-message-box-file/text-message-box-file.component';
+import { TextMessageBoxEvent, TextMessageBoxSelectComponent } from '../../components/text-boxes/text-message-box-select/text-message-box-select.component';
 
 @Component({
   selector: 'app-orthography-page',
@@ -16,6 +17,7 @@ import { TextMessageBoxFileComponent, TextMessageEvent } from '../../components/
     TypingLoaderComponent,
     TextMessageBoxComponent,
     TextMessageBoxFileComponent,
+    TextMessageBoxSelectComponent,
   ],
   templateUrl: './orthography-page.component.html',
   styleUrl: './orthography-page.component.css',
@@ -27,5 +29,8 @@ export default class OrthographyPageComponent {
   }
   handleMessageWithFile({ prompt, file }: TextMessageEvent) {
     console.log({ prompt, file });
+  }
+  handleMessageWithSelect(event: TextMessageBoxEvent) {
+    console.log(event)
   }
 }
