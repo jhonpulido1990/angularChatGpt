@@ -27,17 +27,23 @@ import { OpenAiService } from '../../services/openai.service';
 })
 export default class OrthographyPageComponent {
 
-  public messages = signal<Message[]>([{ text: 'Hola mundo', isGpt: true }]);
+  public messages = signal<Message[]>([]);
   public isLoading = signal(false);
   public openAiService = inject(OpenAiService);
 
   handleMessage(prompt: string) {
-    console.log(prompt);
-  }
-  handleMessageWithFile({ prompt, file }: TextMessageEvent) {
-    console.log({ prompt, file });
-  }
-  handleMessageWithSelect(event: TextMessageBoxEvent) {
-    console.log(event)
+    this.isLoading.set(true);
+    this.messages.update( (prev)=> [
+      ...prev,
+      {
+        isGpt: false,
+        text: prompt
+      }
+    ]);
+    this.openAiService.checkOrthography(prompt)
+    .subscribe( resp => {
+      this.isLoading.set(false);
+      console.log(resp);
+    } )
   }
 }
