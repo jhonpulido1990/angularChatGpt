@@ -5,8 +5,11 @@
       <app-chat-message text="Escribe el texto que deseas que revise." />
       @for (message of messages(); track $index) {
         @if(message.isGpt) {
-          <app-chat-message
+          <app-gpt-message-orthography
             [text]="message.text"
+            [errors]="message.info!.errors"
+            [text]="message.text"
+            [userScore]="message.info!.userScore"
           />
         } @else {
           <app-my-message [text]="message.text" />
