@@ -20,7 +20,6 @@ import { GptMessageOrthographyComponent } from '../../components/chat-bubbles/gp
     GptMessageOrthographyComponent
   ],
   templateUrl: './orthography-page.component.html',
-  styleUrl: './orthography-page.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class OrthographyPageComponent {
@@ -49,7 +48,6 @@ export default class OrthographyPageComponent {
           info: resp
         }
       ] )
-      console.log(resp)
     } )
   }
 }
