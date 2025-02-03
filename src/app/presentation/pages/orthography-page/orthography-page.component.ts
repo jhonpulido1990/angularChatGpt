@@ -9,18 +9,17 @@ import { OpenAiService } from '../../services/openai.service';
 import { GptMessageOrthographyComponent } from '../../components/chat-bubbles/gpt-message-orthography/gpt-message-orthography.component';
 
 @Component({
-  selector: 'app-orthography-page',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ChatMessageComponent,
-    MyMessageComponent,
-    TypingLoaderComponent,
-    TextMessageBoxComponent,
-    GptMessageOrthographyComponent
-  ],
-  templateUrl: './orthography-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-orthography-page',
+    imports: [
+        CommonModule,
+        ChatMessageComponent,
+        MyMessageComponent,
+        TypingLoaderComponent,
+        TextMessageBoxComponent,
+        GptMessageOrthographyComponent
+    ],
+    templateUrl: './orthography-page.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class OrthographyPageComponent {
 

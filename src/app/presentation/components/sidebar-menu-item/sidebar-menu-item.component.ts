@@ -3,11 +3,10 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-sidebar-menu-item',
-  standalone: true,
-  imports: [CommonModule, RouterModule],
-  templateUrl: './sidebar-menu-item.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-sidebar-menu-item',
+    imports: [CommonModule, RouterModule],
+    templateUrl: './sidebar-menu-item.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarMenuItemComponent {
   @Input({ required: true }) icon!: string;

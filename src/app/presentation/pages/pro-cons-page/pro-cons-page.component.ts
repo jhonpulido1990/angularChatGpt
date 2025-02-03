@@ -13,17 +13,16 @@ import { TypingLoaderComponent } from '../../components/typing-loader/typing-loa
 import { TextMessageBoxComponent } from '../../components/text-boxes/text-message-box/text-message-box.component';
 
 @Component({
-  selector: 'app-pro-cons-page',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ChatMessageComponent,
-    MyMessageComponent,
-    TypingLoaderComponent,
-    TextMessageBoxComponent
-  ],
-  templateUrl: './pro-cons-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-pro-cons-page',
+    imports: [
+        CommonModule,
+        ChatMessageComponent,
+        MyMessageComponent,
+        TypingLoaderComponent,
+        TextMessageBoxComponent
+    ],
+    templateUrl: './pro-cons-page.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class ProConsPageComponent {
   public messages = signal<Message[]>([]);

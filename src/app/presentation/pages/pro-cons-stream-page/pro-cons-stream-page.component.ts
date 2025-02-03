@@ -9,18 +9,17 @@ import { TypingLoaderComponent } from '../../components/typing-loader/typing-loa
 import { TextMessageBoxComponent } from '../../components/text-boxes/text-message-box/text-message-box.component';
 
 @Component({
-  selector: 'app-pro-cons-stream-page',
-  standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ChatMessageComponent,
-    MyMessageComponent,
-    TypingLoaderComponent,
-    TextMessageBoxComponent
-  ],
-  templateUrl: './pro-cons-stream-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-pro-cons-stream-page',
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        ChatMessageComponent,
+        MyMessageComponent,
+        TypingLoaderComponent,
+        TextMessageBoxComponent
+    ],
+    templateUrl: './pro-cons-stream-page.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export default class ProConsStreamPageComponent {
   public messages = signal<Message[]>([]);

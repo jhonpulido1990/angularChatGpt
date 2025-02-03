@@ -3,11 +3,10 @@ import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, Output
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-text-message-box',
-  standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './text-message-box.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-text-message-box',
+    imports: [CommonModule, ReactiveFormsModule],
+    templateUrl: './text-message-box.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TextMessageBoxComponent {
   @Input() placeholder: string = '';

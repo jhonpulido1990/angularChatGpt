@@ -5,12 +5,11 @@ import { SidebarMenuItemComponent } from '../../components/sidebar-menu-item/sid
 import { routes } from '../../../app.routes';
 
 @Component({
-  selector: 'app-dashboard-layout',
-  standalone: true,
-  imports: [CommonModule, RouterModule, SidebarMenuItemComponent],
-  templateUrl: './dashboard-layout.component.html',
-  styleUrl: './dashboard-layout.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-dashboard-layout',
+    imports: [CommonModule, RouterModule, SidebarMenuItemComponent],
+    templateUrl: './dashboard-layout.component.html',
+    styleUrl: './dashboard-layout.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DashboardLayoutComponent {
   public routes = routes[0].children?.filter((route) => route.data)
