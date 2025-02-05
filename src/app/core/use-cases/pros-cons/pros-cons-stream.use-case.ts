@@ -1,6 +1,6 @@
 import { environment } from "../../../../environments/environment";
 
-export const proConsStreamUseCase = async (prompt: string) => {
+export async function* proConsStreamUseCase(prompt: string) {
   try {
     const resp = await fetch(`${environment.backendApi}/pro-cons-discusser-stream`, {
       method: 'Post',
@@ -26,7 +26,7 @@ export const proConsStreamUseCase = async (prompt: string) => {
 
       const decodeChunk = decoder.decode(  value, { stream: true } );
       text += decodeChunk;
-      console.log(text)
+      yield text;
     }
 
     return null;

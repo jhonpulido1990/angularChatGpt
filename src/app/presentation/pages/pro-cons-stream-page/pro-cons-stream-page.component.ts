@@ -27,6 +27,22 @@ export default class ProConsStreamPageComponent {
   public openAiService = inject(OpenAiService);
 
   async handleMessage(prompt: string) {
-    await this.openAiService.prosConsStream(prompt)
+
+    this.messages.update(prev => [
+      ...prev, {
+        isGpt: false,
+        text: prompt
+      }
+    ]);
+
+    this.isLoading.set(true);
+
+    const stream = this.openAiService.prosConsStream(prompt);
+
+    this.isLoading.set(false);
+
+    for await (const text of stream) {
+      console.log(text);
+    }
   }
 }
