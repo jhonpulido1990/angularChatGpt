@@ -1,6 +1,6 @@
 import { environment } from "../../../../environments/environment";
 
-export async function* proConsStreamUseCase(prompt: string) {
+export async function* proConsStreamUseCase(prompt: string, abortSignal: AbortSignal) {
   try {
     const resp = await fetch(`${environment.backendApi}/pro-cons-discusser-stream`, {
       method: 'Post',
@@ -8,6 +8,7 @@ export async function* proConsStreamUseCase(prompt: string) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ prompt }),
+      signal: abortSignal,
     });
 
     if (!resp.ok) throw new Error('No se pudo realizar la conexion');

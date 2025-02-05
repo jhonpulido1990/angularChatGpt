@@ -26,7 +26,12 @@ export default class ProConsStreamPageComponent {
   public isLoading = signal(false);
   public openAiService = inject(OpenAiService);
 
+  public abortSignal = new AbortController();
+
   async handleMessage(prompt: string) {
+
+    this.abortSignal.abort();
+    this.abortSignal = new AbortController();
 
     this.messages.update(prev => [
       ...prev, {
@@ -45,7 +50,7 @@ export default class ProConsStreamPageComponent {
       }
     ])
 
-    const stream = this.openAiService.prosConsStream(prompt);
+    const stream = this.openAiService.prosConsStream(prompt, this.abortSignal.signal);
 
     this.isLoading.set(false);
 
