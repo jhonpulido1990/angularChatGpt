@@ -37,12 +37,27 @@ export default class ProConsStreamPageComponent {
 
     this.isLoading.set(true);
 
+    this.messages.update(prev => [
+      ...prev,
+      {
+        isGpt: true,
+        text: '...'
+      }
+    ])
+
     const stream = this.openAiService.prosConsStream(prompt);
 
     this.isLoading.set(false);
 
     for await (const text of stream) {
-      console.log(text);
+      this.handleStreamResponse(text)
     }
+  }
+
+  handleStreamResponse( message: string ) {
+    this.messages().pop();
+    const messages = this.messages();
+
+    this.messages.set([...messages, { isGpt: true, text: message }]);
   }
 }
