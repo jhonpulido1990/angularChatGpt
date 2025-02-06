@@ -31,7 +31,37 @@ export default class TraslatePageComponent {
   public isLoading = signal(false);
   public openAiService = inject(OpenAiService);
 
-  handleMessageWithSelect(event: TextMessageBoxEvent) {
-    console.log(event);
+  public languages = signal([
+    { id: 'alemán', text: 'Alemán' },
+    { id: 'árabe', text: 'Árabe' },
+    { id: 'bengalí', text: 'Bengalí' },
+    { id: 'francés', text: 'Francés' },
+    { id: 'hindi', text: 'Hindi' },
+    { id: 'inglés', text: 'Inglés' },
+    { id: 'japonés', text: 'Japonés' },
+    { id: 'mandarín', text: 'Mandarín' },
+    { id: 'portugués', text: 'Portugués' },
+    { id: 'ruso', text: 'Ruso' },
+  ]);
+
+  handleMessageWithSelect({prompt, selectOption}: TextMessageBoxEvent) {
+    const message = `Traduce a ${selectOption}: ${prompt}`;
+    this.isLoading.set(true);
+    this.messages.update((prev) => [
+      ...prev, {
+        isGpt: false,
+        text: message,
+      }
+    ]);
+    this.openAiService.traslateText(prompt, selectOption)
+    .subscribe(res => {
+      this.isLoading.set(false);
+      this.messages.update((prev)=>[
+        ...prev, {
+          isGpt: true,
+          text: res.message
+        }
+      ])
+    })
   }
 }

@@ -16,5 +16,5 @@
     </div>
   </div>
   <!-- messageBox -->
-  <app-text-message-box-select placeholder="Escribe aqui lo que deseas traducir" [options]="[]" (onMessage)="handleMessageWithSelect($event)" />
+  <app-text-message-box-select placeholder="Escribe aqui lo que deseas traducir" [options]="languages()" (onMessage)="handleMessageWithSelect($event)" />
 </div>
