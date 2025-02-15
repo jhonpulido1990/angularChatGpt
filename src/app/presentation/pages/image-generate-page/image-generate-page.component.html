@@ -5,7 +5,7 @@
       <app-chat-message text="Que deseas generar." />
       @for (message of messages(); track $index) {
       @if(message.isGpt) {
-      <app-chat-message [text]="message.text" />
+      <app-chat-message [text]="message.text" [imageInfo]="message.imageInfo" />
       } @else {
       <app-my-message [text]="message.text" />
       }

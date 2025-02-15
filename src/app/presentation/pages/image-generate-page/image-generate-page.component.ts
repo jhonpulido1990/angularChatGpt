@@ -32,6 +32,25 @@ export default class ImageGeneratePageComponent {
   public openAiService = inject(OpenAiService);
 
   handleMessage(prompt: string) {
-    console.log(prompt);
+    this.isLoading.set(true);
+    this.messages.update((prev) => [
+      ...prev,
+      {
+        isGpt: false,
+        text: prompt,
+      },
+    ]);
+    this.openAiService.imageGeneration(prompt)
+    .subscribe( resp => {
+      this.isLoading.set(false);
+      if(!resp) return;
+      this.messages.update((prev)=> [
+        ...prev, {
+          isGpt: true,
+          text: resp.alt,
+          imageInfo: resp,
+        }
+      ])
+    } )
   }
 }
