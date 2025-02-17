@@ -6,3 +6,4 @@ export * from './use-cases/traslate/traslate-text.use-case';
 export * from './use-cases/audios/text-to-audio.use-case'
 export * from './use-cases/audios/audio-to-text.use-case';
 export * from './use-cases/image-generation/image-generation.use-case';
+export * from './use-cases/image-generation/image-variation.use-case';
