@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ChatMessageComponent } from '../../components/chat-bubbles/chat-message/chat-message.component';
 import { MyMessageComponent } from '../../components/chat-bubbles/my-message/my-message.component';
@@ -7,6 +12,7 @@ import { TextMessageBoxComponent } from '../../components/text-boxes/text-messag
 import { TypingLoaderComponent } from '../../components/typing-loader/typing-loader.component';
 import { Message } from '../../../interfaces';
 import { OpenAiService } from '../../services/openai.service';
+import { GptMessageEditableImageComponent } from '../../components/chat-bubbles/gpt-message-editable-image/gpt-message-editable-image.component';
 
 @Component({
   selector: 'app-image-tunning-page',
@@ -17,12 +23,22 @@ import { OpenAiService } from '../../services/openai.service';
     MyMessageComponent,
     TypingLoaderComponent,
     TextMessageBoxComponent,
+    GptMessageEditableImageComponent,
   ],
   templateUrl: './image-tunning-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ImageTunningPageComponent {
-  public messages = signal<Message[]>([]);
+  public messages = signal<Message[]>([
+    {
+      isGpt: true,
+      text: 'dragon ball',
+      imageInfo: {
+        alt: 'dragoncito',
+        url: 'http://localhost:3000/gpt/image-generation/1739812460880.png',
+      },
+    },
+  ]);
   public isLoading = signal(false);
   public openAiService = inject(OpenAiService);
 
@@ -50,5 +66,13 @@ export default class ImageTunningPageComponent {
       ]);
     });
   }
+
+  handleImageChange(newImage: string, originalImage: string) {
+    this.originalImage.set(originalImage);
+
+    // Todo: askm
+    console.log({ newImage, originalImage });
+  }
+
   generateVariation() {}
 }
