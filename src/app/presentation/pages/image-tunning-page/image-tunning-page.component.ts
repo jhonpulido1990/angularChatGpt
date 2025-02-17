@@ -74,5 +74,29 @@ export default class ImageTunningPageComponent {
     console.log({ newImage, originalImage });
   }
 
-  generateVariation() {}
+  generateVariation() {
+    if (!this.originalImage) {
+      this.isLoading.set(false);
+      return;
+    }
+
+    this.isLoading.set(true);
+
+    this.openAiService
+      .imageVariation(this.originalImage()!)
+      .subscribe((resp) => {
+        this.isLoading.set(false);
+
+        if (!resp) return;
+
+        this.messages.update((prev) => [
+          ...prev,
+          {
+            isGpt: true,
+            text: resp.alt,
+            imageInfo: resp,
+          },
+        ]);
+      });
+  }
 }
