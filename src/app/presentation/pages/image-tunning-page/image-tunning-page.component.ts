@@ -43,6 +43,7 @@ export default class ImageTunningPageComponent {
   public openAiService = inject(OpenAiService);
 
   public originalImage = signal<string | undefined>(undefined);
+  public masksImage = signal<string | undefined>(undefined);
 
   handleMessage(prompt: string) {
     this.isLoading.set(true);
@@ -53,25 +54,25 @@ export default class ImageTunningPageComponent {
         text: prompt,
       },
     ]);
-    this.openAiService.imageGeneration(prompt).subscribe((resp) => {
-      this.isLoading.set(false);
-      if (!resp) return;
-      this.messages.update((prev) => [
-        ...prev,
-        {
-          isGpt: true,
-          text: resp.alt,
-          imageInfo: resp,
-        },
-      ]);
-    });
+    this.openAiService
+      .imageGeneration(prompt, this.originalImage(), this.masksImage())
+      .subscribe((resp) => {
+        this.isLoading.set(false);
+        if (!resp) return;
+        this.messages.update((prev) => [
+          ...prev,
+          {
+            isGpt: true,
+            text: resp.alt,
+            imageInfo: resp,
+          },
+        ]);
+      });
   }
 
   handleImageChange(newImage: string, originalImage: string) {
     this.originalImage.set(originalImage);
-
-    // Todo: askm
-    console.log({ newImage, originalImage });
+    this.masksImage.set(newImage);
   }
 
   generateVariation() {
