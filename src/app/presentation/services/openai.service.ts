@@ -1,6 +1,16 @@
 import { Injectable } from '@angular/core';
-import { audioToTextUseCase, imageGenerationUseCase, imageVariationUseCase, orthographyUseCase, proConsStreamUseCase, prosConsUseCase, textToAudioUseCase, traslateTextUseCase } from '../../core';
-import { from } from 'rxjs';
+import {
+  audioToTextUseCase,
+  createThreadUseCase,
+  imageGenerationUseCase,
+  imageVariationUseCase,
+  orthographyUseCase,
+  proConsStreamUseCase,
+  prosConsUseCase,
+  textToAudioUseCase,
+  traslateTextUseCase,
+} from '../../core';
+import { from, Observable, of, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class OpenAiService {
@@ -29,10 +39,22 @@ export class OpenAiService {
   }
 
   imageGeneration(prompt: string, originalImage?: string, maskImage?: string) {
-    return from( imageGenerationUseCase(prompt, originalImage, maskImage) )
+    return from(imageGenerationUseCase(prompt, originalImage, maskImage));
   }
 
   imageVariation(originalImage: string) {
-    return from( imageVariationUseCase(originalImage) );
+    return from(imageVariationUseCase(originalImage));
+  }
+
+  createThread(): Observable<string> {
+    if (localStorage.getItem('thread')) {
+      return of(localStorage.getItem('thread')!);
+    }
+
+    return from(createThreadUseCase()).pipe(
+      tap((thread) => {
+        localStorage.setItem('thread', thread);
+      })
+    );
   }
 }

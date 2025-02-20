@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Message } from '../../../interfaces';
 import { ChatMessageComponent } from '../../components/chat-bubbles/chat-message/chat-message.component';
@@ -21,12 +21,20 @@ import { OpenAiService } from '../../services/openai.service';
   templateUrl: './assistant-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class AssistantPageComponent {
+export default class AssistantPageComponent implements OnInit {
   public messages = signal<Message[]>([]);
   public isLoading = signal(false);
   public openAiService = inject(OpenAiService);
 
-  handleMessage(prompt: string) {
-    console.log(prompt);
+  public threasId = signal<string|undefined>(undefined);
+
+  ngOnInit(): void {
+    this.openAiService.createThread()
+    .subscribe( id => {
+      this.threasId.set(id);
+    } )
+  }
+  handleMessage(question: string) {
+    console.log({question, threasId: this.threasId()});
   }
 }
