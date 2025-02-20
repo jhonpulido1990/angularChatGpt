@@ -35,6 +35,26 @@ export default class AssistantPageComponent implements OnInit {
     } )
   }
   handleMessage(question: string) {
-    console.log({question, threasId: this.threasId()});
+    this.isLoading.set(true);
+    this.messages.update( prev => [
+      ...prev, {
+        isGpt: false,
+        text: question,
+      }
+    ]);
+    this.openAiService.postQuestion(this.threasId()!, question)
+    .subscribe(replies => {
+      this.isLoading.set(false);
+      for(const reply of replies){
+        for (const message of reply.content) {
+          this.messages.update(prev => [
+            ...prev, {
+              isGpt: reply.role[0] === 'Assistant',
+              text: message
+            },
+          ])
+        }
+      }
+    });
   }
 }

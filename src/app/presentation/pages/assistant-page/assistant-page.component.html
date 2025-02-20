@@ -2,7 +2,7 @@
   <div class="chat-messages">
     <div class="grid gap-y-2">
       <!-- chat message -->
-      <app-chat-message text="Escribe el texto que deseas que revise." />
+      <app-chat-message text="Saludos soy Sam, ¿cuela es tu nombre? y ¿En que puedo ayudarte?" />
       @for (message of messages(); track $index) {
       @if(message.isGpt) {
       <app-chat-message [text]="message.text" />

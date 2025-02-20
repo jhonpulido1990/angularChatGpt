@@ -5,6 +5,7 @@ import {
   imageGenerationUseCase,
   imageVariationUseCase,
   orthographyUseCase,
+  postQuestionUseCase,
   proConsStreamUseCase,
   prosConsUseCase,
   textToAudioUseCase,
@@ -56,5 +57,9 @@ export class OpenAiService {
         localStorage.setItem('thread', thread);
       })
     );
+  }
+
+  postQuestion(threadId: string, question: string) {
+    return from(postQuestionUseCase(threadId, question));
   }
 }
